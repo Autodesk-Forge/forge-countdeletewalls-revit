@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="DBApplication">
+    <Name>CountIt</Name>
+    <Assembly>.\CountIt.dll</Assembly>
+    <AddInId>506D0EC0-D0F2-4971-95A0-17FF4D250D1E</AddInId>
+    <FullClassName>CountIt.CountIt</FullClassName>
+    <Description>"Counts elements in a model."</Description>
+    <VendorId>Autodesk</VendorId>
+    <VendorDescription>Autodesk</VendorDescription>
+  </AddIn>
+</RevitAddIns>
