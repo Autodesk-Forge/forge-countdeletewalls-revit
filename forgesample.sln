@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountIt", "CountItApp\CountIt.csproj", "{2634C8A7-9D7F-43B2-B4F8-3E28D8975B0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteWalls", "DeleteWallsApp\DeleteWalls.csproj", "{4B34EFEC-5F75-4EFB-80AA-4629F80D3D5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2634C8A7-9D7F-43B2-B4F8-3E28D8975B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2634C8A7-9D7F-43B2-B4F8-3E28D8975B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2634C8A7-9D7F-43B2-B4F8-3E28D8975B0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B34EFEC-5F75-4EFB-80AA-4629F80D3D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B34EFEC-5F75-4EFB-80AA-4629F80D3D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B34EFEC-5F75-4EFB-80AA-4629F80D3D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B34EFEC-5F75-4EFB-80AA-4629F80D3D5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
