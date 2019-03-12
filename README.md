@@ -98,10 +98,7 @@ Desktop APIs:
 
 ### Tips & Tricks
 
-This sample uses .NET Core and should work fine on both Windows and MacOS, did not verify on MacOS yet, but you can see [this tutorial for MacOS](https://github.com/augustogoncalves/dotnetcoreheroku) if you want to try.
-
-### Troubleshooting
-
+This sample uses .NET Core and should work fine on both Windows and MacOS, did not verify on MacOS yet, but you can check [this tutorial for MacOS](https://github.com/augustogoncalves/dotnetcoreheroku) if you want to try.
 
 ## License
 
