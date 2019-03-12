@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountIt", "CountItApp\CountIt.csproj", "{2634C8A7-9D7F-43B2-B4F8-3E28D8975B0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteWalls", "DeleteWallsApp\DeleteWalls.csproj", "{4B34EFEC-5F75-4EFB-80AA-4629F80D3D5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteElements", "DeleteElementsApp\DeleteElements.csproj", "{4B34EFEC-5F75-4EFB-80AA-4629F80D3D5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

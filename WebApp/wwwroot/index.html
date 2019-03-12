@@ -5,14 +5,24 @@
     <title>Autodesk Forge - Design Automation</title>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="https://github.com/Autodesk-Forge/learn.forge.viewhubmodels/raw/master/img/favicon.ico">
-    <!-- Common packages: jQuery, Bootstrap -->
+    <!-- Common packages: jQuery, Bootstrap, jsTree -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+
     <!-- .NET SignalR -->
     <script src="//unpkg.com/@aspnet/signalr@1.1.0/dist/browser/signalr.min.js"></script>
+    <!-- Autodesk Forge Viewer files -->
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/style.min.css?v=v6.0" type="text/css">
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js?v=v6.0"></script>
     <!-- Files for this project -->
+    <link href="css/main.css" rel="stylesheet" />
     <script src="/js/ForgeDesignAutomation.js"></script>
+    <script src="/js/ForgeTree.js"></script>
+    <script src="/js/ForgeViewer.js"></script>
+
 </head>
 
 <body style="height: 100%;">
@@ -37,31 +47,114 @@
     <!-- End of navbar -->
     <div class="container-fluid" style="margin-top: 70px;">
         <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="width">Width:</label>
-                    <input type="number" class="form-control" id="width" placeholder="Enter new width value">
-                </div>
-                <div class="form-group">
-                    <label for="height">Height:</label>
-                    <input type="number" class="form-control" id="height" placeholder="Enter new height value">
+
+            <div class="col-sm-3">
+                <div class="panel panel-default fill">
+                    <div class="panel-heading" data-toggle="tooltip">
+                        Buckets &amp; Objects
+                        <span id="refreshBuckets" class="glyphicon glyphicon-refresh" style="cursor: pointer"></span>
+                        <button class="btn btn-xs btn-info" style="float: right" id="showFormCreateBucket" data-toggle="modal" data-target="#createBucketModal">
+                            <span class="glyphicon glyphicon-folder-close"></span> New bucket
+                        </button>
+                    </div>
+                    <div id="appBuckets">
+                        tree here
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="inputFile">Input file</label>
-                    <input type="file" class="form-control-file" id="inputFile">
+            </div>
+            <div class="col-sm-6">
+                <div style= "text-align: center;">
+                    <h5>Query/Delete Elements from Revit File</h5>
                 </div>
-                <div class="form-group">
+                <div class="row">
+                    <div style="padding-top: 10px; text-align: center;">
+                        <div class="col-lg-3">
+                            <div class="thumbnail">
+                                <img src="/res/wall.jpeg" class="img-rounded" width="150px" height="=150px" alt="Delete All Walls">
+                                <div class="caption">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id='selectWalls' checked=true>
+                                        </span>
+                                        <label class="form-control">
+                                            Walls <span class="badge badge-pill badge-primary" id='walls'></span>
+
+                                        </label>
+                                    </div><!-- /input-group -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="thumbnail">
+                                <img src="/res/floors.jpg" class="img-rounded" width="150px" height="=150px" alt="Delete All Floors">
+                                <div class="caption">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id='selectFloors' checked=true>
+                                        </span>
+                                        <label class="form-control">
+                                            Floors
+                                            <span class="badge badge-pill badge-primary" id='floors'></span>
+                                        </label>
+                                    </div><!-- /input-group -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="thumbnail">
+                                <img src="/res/door.jpeg" class="img-rounded" width="150px" height="=150px" alt="Delete All Doors">
+                                <div class="caption">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id='selectDoors' checked=true>
+                                        </span>
+                                        <label class="form-control">
+                                            Doors
+                                            <span class="badge badge-pill badge-primary" id="doors"></span>
+                                        </label>
+                                    </div><!-- /input-group -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="thumbnail">
+                                <img src="/res/window.jpg" class="img-rounded" width="150px" height="=150px" alt="Delete All Windows">
+                                <div class="caption">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" id='selectWindows' checked=true>
+                                        </span>
+                                        <label class="form-control">
+                                            Windows
+                                            <span class="badge badge-pill badge-primary" id="windows"></span>
+                                        </label>
+                                    </div><!-- /input-group -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="padding-top: 10px;">
                     <label for="activity">Existing activities</label>
                     <select class="form-control" id="activity"> </select>
                 </div>
                 <center><button class="btn btn-primary" id="startWorkitem">Start workitem</button></center><br />
+
+                <div id="forgeViewer">
+                </div>
+
             </div>
-            <div class="col-sm-8">
-                <pre id="outputlog" style="height: calc(100vh - 120px);; overflow-y: scroll;"></pre>
+                <div class="col-sm-3">
+                    <pre id="outputlog" style="height: calc(100vh - 100px);; overflow-y: scroll;"></pre>
+                </div>
             </div>
         </div>
-    </div>
     <!-- Modal Define AppBundle & Activity -->
     <div class="modal fade" id="defineActivityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">

@@ -7,8 +7,8 @@
     <ProjectGuid>{4B34EFEC-5F75-4EFB-80AA-4629F80D3D5B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DeleteWalls</RootNamespace>
-    <AssemblyName>DeleteWalls</AssemblyName>
+    <RootNamespace>DeleteElements</RootNamespace>
+    <AssemblyName>DeleteElements</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -35,6 +35,10 @@
       <HintPath>..\..\design.automation-csharp-revit.window.family.create\packages\Autodesk.Forge.DesignAutomation.Revit.2019.0.0-beta2\lib\net47\DesignAutomationBridge.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="RevitAPI">
       <HintPath>C:\Program Files\Autodesk\Revit 2019\RevitAPI.dll</HintPath>
       <Private>False</Private>
@@ -49,14 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeleteWalls.cs" />
+    <Compile Include="DeleteElements.cs" />
+    <Compile Include="DeleteElementsParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DeleteWalls.bundle\PackageContents.xml">
+    <Content Include="DeleteElements.bundle\PackageContents.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
-    <Content Include="DeleteWalls.bundle\Contents\DeleteWalls.addin">
+    <Content Include="DeleteElements.bundle\Contents\DeleteElements.addin">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -65,9 +70,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y /F "$(TargetDir)*.dll" "$(ProjectDir)DeleteWalls.bundle\Contents\"
-del /F "$(ProjectDir)..\WebApp\wwwroot\bundlesDeleteWalls.zip"
-"C:\Program Files\7-Zip\7z.exe" a -tzip "$(ProjectDir)../WebApp/wwwroot/bundles/DeleteWalls.zip" "$(ProjectDir)DeleteWalls.bundle\" -xr0!*.pdb</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y /F "$(TargetDir)*.dll" "$(ProjectDir)DeleteElements.bundle\Contents\"
+del /F "$(ProjectDir)..\WebApp\wwwroot\bundlesDeleteElements.zip"
+"C:\Program Files\7-Zip\7z.exe" a -tzip "$(ProjectDir)../WebApp/wwwroot/bundles/DeleteElements.zip" "$(ProjectDir)DeleteElements.bundle\" -xr0!*.pdb</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

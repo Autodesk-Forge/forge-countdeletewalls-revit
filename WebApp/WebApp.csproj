@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\bundles\" />
+    <Folder Include="wwwroot\res\" />
   </ItemGroup>
 
 </Project>

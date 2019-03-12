@@ -56,6 +56,12 @@ namespace CountIt
             return docList;
         }
 
+        /// <summary>
+        /// Count the element in each file
+        /// </summary>
+        /// <param name="revitDoc"></param>
+        /// <param name="countItParams"></param>
+        /// <param name="results"></param>
         internal static void CountElements(Document revitDoc, CountItParams countItParams, ref CountItResults results)
         {
             if (countItParams.walls)
@@ -101,6 +107,13 @@ namespace CountIt
             }
         }
 
+        /// <summary>
+        /// count the elements depends on the input parameter in params.json
+        /// </summary>
+        /// <param name="rvtApp"></param>
+        /// <param name="inputModelPath"></param>
+        /// <param name="doc"></param>
+        /// <returns></returns>
         public static bool CountElementsInModel(Application rvtApp, string inputModelPath, Document doc)
         {
             if (rvtApp == null)
@@ -113,7 +126,7 @@ namespace CountIt
                return false;
             
             // For CountIt workItem: If RvtParameters is null, count all types
-            CountItParams countItParams = CountItParams.Parse("CountItParams.json");
+            CountItParams countItParams = CountItParams.Parse("params.json");
             CountItResults results = new CountItResults();
 
             List<Document> allDocs = GetHostAndLinkDocuments(doc);

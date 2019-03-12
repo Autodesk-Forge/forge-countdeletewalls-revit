@@ -4,7 +4,10 @@ using Newtonsoft.Json;
 
 namespace CountIt
 {
-   internal class CountItParams
+    /// <summary>
+    /// CountItParams is used to parse the input Json parameters
+    /// </summary>
+    internal class CountItParams
    {
       public bool walls { get; set; } = false;
       public bool floors { get; set; } = false;

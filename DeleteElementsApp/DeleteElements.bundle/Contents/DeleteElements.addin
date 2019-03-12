@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
   <AddIn Type="DBApplication">
-    <Name>DeleteWalls</Name>
-    <Assembly>.\DeleteWalls.dll</Assembly>
+    <Name>DeleteElements</Name>
+    <Assembly>.\DeleteElements.dll</Assembly>
     <AddInId>d7fe1983-8f10-4983-98e2-c3cc332fc978</AddInId>
-    <FullClassName>DeleteWalls.DeleteWallsApp</FullClassName>
-    <Description>"Deletes Walls"</Description>
+    <FullClassName>DeleteElements.DeleteElementsApp</FullClassName>
+    <Description>"Deletes Elements"</Description>
     <VendorId>Autodesk</VendorId>
     <VendorDescription>
     </VendorDescription>
