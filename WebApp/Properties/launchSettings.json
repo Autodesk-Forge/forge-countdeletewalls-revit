@@ -12,12 +12,12 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "FORGE_WEBHOOK_CALLBACK_HOST": "http://e14387d9.ngrok.io",
-        "FORGE_CLIENT_SECRET": "GterJKtiuNTxvePb",
+        "FORGE_CLIENT_SECRET": "your client id",
         "ASPNETCORE_URLS": "http://localhost:3000",
-        "FORGE_CLIENT_ID": "3xxaGfgk6hXRoAtc5au2p3rhCuGrvBBU",
+        "FORGE_CLIENT_ID": "your client secret",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "FORGE_DESIGN_AUTOMATION_NICKNAME": "revitiosamplebyzhong"
+        "FORGE_DESIGN_AUTOMATION_NICKNAME": "your design automation app nick name",
+        "FORGE_WEBHOOK_URL": "http://6d940767.ngrok.io"
       }
     },
     "forgesample": {
