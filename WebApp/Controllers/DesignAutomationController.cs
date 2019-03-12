@@ -248,76 +248,6 @@ namespace forgesample.Controllers
         }
 
 
-
-
-        /// <summary>
-        /// Start a new workitem
-        ///// </summary>
-        //[HttpPost]
-        //[Route("api/forge/designautomation/deleteelements")]
-        //public async Task<IActionResult> DeleteElements([FromForm]DeleteElementsInput input)
-        //{
-        //    // basic input validation
-        //    string activityName = string.Format("{0}.{1}", NickName, input.activityId);
-        //    string browerConnectionId = input.browerConnectionId;
-        //    string bucketKey = input.bucketId;
-        //    string inputFileNameOSS = input.objectId;
-
-
-        //    // OAuth token
-        //    dynamic oauth = await OAuthController.GetInternalAsync();
-
-        //    // prepare workitem arguments
-        //    // 1. input file
-        //    XrefTreeArgument inputFileArgument = new XrefTreeArgument()
-        //    {
-        //        Url = string.Format("https://developer.api.autodesk.com/oss/v2/buckets/{0}/objects/{1}", bucketKey, inputFileNameOSS),
-        //        Headers = new Dictionary<string, string>()
-        //        {
-        //            { "Authorization", "Bearer " + oauth.access_token }
-        //        }
-        //    };
-        //    // 2. input json
-        //    //dynamic inputJson = new JObject();
-        //    //inputJson.Width = widthParam;
-        //    //inputJson.Height = heigthParam;
-        //    XrefTreeArgument inputJsonArgument = new XrefTreeArgument()
-        //    {
-        //        Url = "data:application/json, " + (input.data.Replace("\"", "'"))
-        //    };
-        //    // 3. output file
-        //    string outputFileNameOSS = string.Format("{0}_output_{1}", DateTime.Now.ToString("yyyyMMddhhmmss"), Path.GetFileName(inputFileNameOSS)); // avoid overriding
-        //    XrefTreeArgument outputFileArgument = new XrefTreeArgument()
-        //    {
-        //        Url = string.Format("https://developer.api.autodesk.com/oss/v2/buckets/{0}/objects/{1}", bucketKey, outputFileNameOSS),
-        //        Verb = Verb.Put,
-        //        Headers = new Dictionary<string, string>()
-        //        {
-        //            {"Authorization", "Bearer " + oauth.access_token }
-        //        }
-        //    };
-
-        //    // prepare & submit workitem
-        //    // the callback contains the connectionId (used to identify the client) and the outputFileName of this workitem
-        //    string callbackUrl = string.Format("{0}/api/forge/callback/designautomation?id={1}&bucketKey={2}&outputFileName={3}", OAuthController.GetAppSetting("FORGE_WEBHOOK_URL"), browerConnectionId, bucketKey, outputFileNameOSS);
-        //    WorkItem workItemSpec = new WorkItem()
-        //    {
-        //        ActivityId = activityName,
-        //        Arguments = new Dictionary<string, IArgument>()
-        //        {
-        //            { "inputFile",  inputFileArgument },
-        //            { "inputJson",  inputJsonArgument },
-        //            { "outputFile",  outputFileArgument },
-        //            { "onComplete", new XrefTreeArgument { Verb = Verb.Post, Url = callbackUrl } }
-        //        }
-        //    };
-        //    WorkItemStatus workItemStatus = await _designAutomation.CreateWorkItemsAsync(workItemSpec);
-
-        //    return Ok(new { WorkItemId = workItemStatus.Id });
-        //}
-
-
-
         [HttpPost]
         [Route("api/forge/designautomation/startworkitem")]
         public async Task<IActionResult> StartWorkItem([FromForm]StartWorkitemInput input)
@@ -386,76 +316,6 @@ namespace forgesample.Controllers
         }
 
 
-        ///// <summary>
-        ///// Start a new workitem
-        ///// </summary>
-        //[HttpPost]
-        //[Route("api/forge/designautomation/countit")]
-        //public async Task<IActionResult> CountIt([FromForm]CountItInput input)
-        //{
-        //    // basic input validation
-        //    JObject workItemData = JObject.Parse(input.data);
-        //    string activityName = string.Format("{0}.{1}", NickName, input.activityId);
-        //    string browerConnectionId = input.browerConnectionId;
-        //    string bucketKey = input.bucketId;
-        //    string inputFileNameOSS = input.objectId;
-
-
-        //    // OAuth token
-        //    dynamic oauth = await OAuthController.GetInternalAsync();
-
-        //    // prepare workitem arguments
-        //    // 1. input file
-        //    XrefTreeArgument inputFileArgument = new XrefTreeArgument()
-        //    {
-        //        Url = string.Format("https://developer.api.autodesk.com/oss/v2/buckets/{0}/objects/{1}", bucketKey, inputFileNameOSS),
-        //        Headers = new Dictionary<string, string>()
-        //{
-        //    { "Authorization", "Bearer " + oauth.access_token }
-        //}
-        //    };
-        //    // 2. input json
-        //    //dynamic inputJson = new JObject();
-        //    //inputJson.Width = widthParam;
-        //    //inputJson.Height = heigthParam;
-        //    XrefTreeArgument inputJsonArgument = new XrefTreeArgument()
-        //    {
-        //        Url = "data:application/json, " + (input.data.Replace("\"", "'"))
-        //    };
-        //    // 3. output file
-        //    string outputFileNameOSS = string.Format("{0}_output_{1}.txt", DateTime.Now.ToString("yyyyMMddhhmmss"), Path.GetFileNameWithoutExtension(inputFileNameOSS)); // avoid overriding
-        //    XrefTreeArgument outputFileArgument = new XrefTreeArgument()
-        //    {
-        //        Url = string.Format("https://developer.api.autodesk.com/oss/v2/buckets/{0}/objects/{1}", bucketKey, outputFileNameOSS),
-        //        Verb = Verb.Put,
-        //        Headers = new Dictionary<string, string>()
-        //    {
-        //        {"Authorization", "Bearer " + oauth.access_token }
-        //    }
-        //    };
-
-        //    // prepare & submit workitem
-        //    // the callback contains the connectionId (used to identify the client) and the outputFileName of this workitem
-        //    string callbackUrl = string.Format("{0}/api/forge/callback/designautomation?id={1}&bucketKey={2}&outputFileName={3}", OAuthController.GetAppSetting("FORGE_WEBHOOK_URL"), browerConnectionId, bucketKey, outputFileNameOSS);
-        //    WorkItem workItemSpec = new WorkItem()
-        //    {
-        //        ActivityId = activityName,
-        //        Arguments = new Dictionary<string, IArgument>()
-        //{
-        //    { "inputFile",  inputFileArgument },
-        //    { "inputJson",  inputJsonArgument },
-        //    { "outputTxt",  outputFileArgument },
-        //    { "onComplete", new XrefTreeArgument { Verb = Verb.Post, Url = callbackUrl } }
-        //}
-        //    };
-        //    WorkItemStatus workItemStatus = await _designAutomation.CreateWorkItemsAsync(workItemSpec);
-
-        //    return Ok(new { WorkItemId = workItemStatus.Id });
-        //}
-
-
-
-
         /// <summary>
         /// Callback from Design Automation Workitem (onProgress or onComplete)
         /// </summary>
@@ -481,7 +341,7 @@ namespace forgesample.Controllers
                 ObjectsApi objectsApi = new ObjectsApi();
                 dynamic signedUrl = await objectsApi.CreateSignedResourceAsyncWithHttpInfo(bucketKey, outputFileName, new PostBucketsSigned(10), "read");
                 string signedUrlLink = signedUrl.Data.signedUrl;
-                // send the json content to client if result is text
+                // send the json content to client if result is text, for countitactivity
                 if ( Path.GetExtension(outputFileName) == ".txt")
                 {
                     // get the content of the result file
@@ -499,6 +359,19 @@ namespace forgesample.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Clear the accounts (for debugging purpouses)
+        /// </summary>
+        [HttpDelete]
+        [Route("api/forge/designautomation/account")]
+        public async Task<IActionResult> ClearAccount()
+        {
+            // clear account
+            await _designAutomation.DeleteForgeAppAsync("me");
+            return Ok();
+        }
+
         /// <summary>
         /// Input for StartWorkitem
         /// </summary>
@@ -510,26 +383,6 @@ namespace forgesample.Controllers
             public string browerConnectionId { get; set; }
             public string activityId { get; set; }
         }
-
-        //public class DeleteElementsInput
-        //{
-        //    public string objectId { get; set; }
-        //    public string bucketId { get; set; }
-        //    public string data { get; set; }
-        //    public string browerConnectionId { get; set; }
-        //    public string activityId { get; set; }
-        //}
-
-        //public class CountItInput
-        //{
-        //    public string objectId { get; set; }
-        //    public string bucketId { get; set; }
-        //    public string data { get; set; }
-        //    public string browerConnectionId { get; set; }
-        //    public string activityId { get; set; }
-
-
-        //}
     }
 
     /// <summary>
