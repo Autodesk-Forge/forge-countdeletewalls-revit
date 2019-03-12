@@ -123,15 +123,14 @@ function autodeskCustomMenu(autodeskNode) {
 
 function uploadFile(node) {
   $('#hiddenUploadField').click();
-  $('#hiddenUploadField').change(function () {
+    $('#hiddenUploadField').change(function () {
     if (this.files.length === 0) return;
     var file = this.files[0];
     switch (node.type) {
       case 'bucket':
         var formData = new FormData();
-        formData.append('fileToUpload', file);
+        formData.append('inputFile', file);
         formData.append('bucketKey', node.id);
-
         $.ajax({
           url: '/api/forge/oss/objects',
           data: formData,

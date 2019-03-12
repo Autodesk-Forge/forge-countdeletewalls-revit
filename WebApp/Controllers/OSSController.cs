@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -102,42 +104,48 @@ namespace forgesample.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("api/forge/oss/objects")]
-        //public async Task<dynamic> UploadObject()
-        //{
-        //    // basic input validation
-        //    HttpRequest req = HttpContext.Current.Request;
-        //    if (string.IsNullOrWhiteSpace(req.Params["bucketKey"]))
-        //        throw new System.Exception("BucketKey parameter was not provided.");
+        public async Task<dynamic> UploadObject([FromForm]UploadFileInput input)
+        {
+            // basic input validation
+            if (string.IsNullOrWhiteSpace(input.bucketKey))
+                throw new System.Exception("BucketKey parameter was not provided.");
 
-        //    if (req.Files.Count != 1)
-        //        throw new System.Exception("Missing file to upload"); // for now, let's support just 1 file at a time
+            if (input.inputFile == null )
+                throw new System.Exception("Missing file to upload"); // for now, let's support just 1 file at a time
 
-        //    string bucketKey = req.Params["bucketKey"];
-        //    HttpPostedFile file = req.Files[0];
+            string bucketKey = input.bucketKey;
 
-        //    // save the file on the server
-        //    var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data"), file.FileName);
-        //    file.SaveAs(fileSavePath);
+            var fileSavePath = Path.Combine( Directory.GetCurrentDirectory()+"\\wwwroot\\appdata", Path.GetFileName(input.inputFile.FileName));
+            using (var stream = new FileStream(fileSavePath, FileMode.Create))
+                await input.inputFile.CopyToAsync(stream);
 
-        //    // get the bucket...
-        //    dynamic oauth = await OAuthController.GetInternalAsync();
-        //    ObjectsApi objects = new ObjectsApi();
-        //    objects.Configuration.AccessToken = oauth.access_token;
 
-        //    // upload the file/object, which will create a new object
-        //    dynamic uploadedObj;
-        //    using (StreamReader streamReader = new StreamReader(fileSavePath))
-        //    {
-        //        uploadedObj = await objects.UploadObjectAsync(bucketKey,
-        //               file.FileName, (int)streamReader.BaseStream.Length, streamReader.BaseStream,
-        //               "application/octet-stream");
-        //    }
+            // get the bucket...
+            dynamic oauth = await OAuthController.GetInternalAsync();
+            ObjectsApi objects = new ObjectsApi();
+            objects.Configuration.AccessToken = oauth.access_token;
 
-        //    // cleanup
-        //    File.Delete(fileSavePath);
+            // upload the file/object, which will create a new object
+            dynamic uploadedObj;
+            using (StreamReader streamReader = new StreamReader(fileSavePath))
+            {
+                uploadedObj = await objects.UploadObjectAsync(bucketKey,
+                       Path.GetFileName(input.inputFile.FileName), (int)streamReader.BaseStream.Length, streamReader.BaseStream,
+                       "application/octet-stream");
+            }
 
-        //    return uploadedObj;
-        //}
+            // cleanup
+            System.IO.File.Delete(fileSavePath);// delete server copy
+
+            return uploadedObj;
+        }
+
+
+        public class UploadFileInput
+        {
+            public IFormFile inputFile { get; set; }
+            public string bucketKey { get; set; }
+        }
 
         /// <summary>
         /// Base64 enconde a string

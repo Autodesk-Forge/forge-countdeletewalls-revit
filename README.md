@@ -95,7 +95,6 @@ Desktop APIs:
 ### Known Issues
 
 - Sometimes you may fail to delete some Revit element depends on the Revit project file, will check that later. 
-- Upload file to bucket is still under migration.
 
 ### Tips & Tricks
 
