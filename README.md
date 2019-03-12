@@ -16,29 +16,24 @@
 
 # Description
 
-This sample is based on Learn Forge [Design Automation Sample](http://learnforge.autodesk.io/#/tutorials/modifymodels), the workflow is pretty similar, please make sure to go through that sample first, or you are already familiar with that. 
+This sample is based on Learn Forge [Design Automation Sample Tutorial](http://learnforge.autodesk.io/#/tutorials/modifymodels), the workflow is pretty similar, please make sure to go through that sample first, or you are already familiar with that. 
 
-This sample includes 2 Revit plugin projects, `CountIt` and `DeleteElement`, which are migrated from the `CountIt` & `DeleteWalls` from [Autodesk Forge official document](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit-samples/), I just improved a little to make the 2 plugin project can Count/Delete elements(Walls, Floors, Doors, Windows) based on the input json file. 
+This sample includes 2 Revit plugin projects, `CountIt` and `DeleteElement`, which are migrated from the `CountIt` & `DeleteWalls` from [Autodesk Forge official document](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit-samples/), I made a little improvement to `DeleteWalls` sample to support deleting different types of elements(Walls, Floors, Doors, Windows) based on the input json file, and renamed the Revit plugin project to `DeleteElements`.
 
-The sample also integrates the UI from [learn.forge.viewmodels](https://github.com/Autodesk-Forge/learn.forge.viewmodels) to get the input revit file from the bucket, and also put the result file back to the same bucket. The result files are different, a `.txt` file for `CountIt`, and an modified `.rvt` file for `DeleteElements`.
+The sample also integrates the bucket jstree and viewer from [learn.forge.viewmodels](https://github.com/Autodesk-Forge/learn.forge.viewmodels/tree/net) to get the input revit file from the bucket, and also put the result file back to the same bucket. The result files are different based on different `activities`, a `.txt` file for `CountIt`, and an modified `.rvt` file for `DeleteElements`.
 
-To use the sample, the workflow should be:
+**To use the sample, the workflow should be:**
 1. Build the solution to create 2 AppBundle under `wwwroot/bundles`;
-2. Create/Update AppBundle & Activity in Configure dialog;
+2. Create/Update AppBundle & Activity in `Configure` dialog;
 3. Create a bucket and upload a Revit project file;
-4. Select a Revit project file, translate it to view;
-5. Select different element you want to Count/Delete, select activity, click `Start workitem` to post the workitem.
-6. The result file(.txt or .rvt) will be put in the same bucket, you can translate and view it, or you can download the file to check out.
-
+4. Select a Revit project file, translate it and open it in Forge viewer;
+5. Select different element types you want to Count/Delete, select activity, click `Start workitem` to post a workitem.
+6. The result file(`.txt` or `.rvt`) will be put in the same bucket, you can translate and view it, or you can download the file to check out.
 
 ## Thumbnail
 
 ![thumbnail](thumbnail.png)
 
-
-## Live version
-
-Work in progress.
 
 # Setup
 
@@ -63,48 +58,33 @@ Right-click on the project, then go to **Debug**. Adjust the settings as shown b
 
 ![](visual_studio_settings.png) 
 
+The environment variables you need to set should be as follow, most of them are same as detailed in [Design Automation Sample Tutorial](http://learnforge.autodesk.io/#/environment/setup/netcore). The only one you need to notice is `FORGE_DESIGN_AUTOMATION_NICKNAME`, if you already set a `NickName` for your Forge App, e.g. revitiomycompanyname, please input the value of `NickName` here, if you don't set a `NickName`, you can ignore this environment variable, just leave it as it is.
+
+- "ASPNETCORE_ENVIRONMENT": "Development",
+- "ASPNETCORE_URLS" : "http://localhost:3000",
+- "FORGE_CLIENT_ID": "Your Forge App Client Id",
+- "FORGE_CLIENT_SECRET": "Your Forge App Client Secret",
+- "FORGE_WEBHOOK_URL": "your ngrok address here: e.g. http://abcd1234.ngrok.io",
+- "FORGE_DESIGN_AUTOMATION_NICKNAME": "", 
+
 **ngrok**
 
 Run `ngrok http 3000 -host-header="localhost:3000"` to create a tunnel to your local machine, then copy the address into the `FORGE_WEBHOOK_URL` environment variable.
 
-**Environment variables**
-
-At the `.vscode\launch.json`, find the env vars and add your Forge Client ID, Secret and callback URL. Also define the `ASPNETCORE_URLS` variable. The end result should be as shown below:
-
-```json
-"env": {
-    "ASPNETCORE_ENVIRONMENT": "Development",
-    "ASPNETCORE_URLS" : "http://localhost:3000",
-    "FORGE_CLIENT_ID": "your id here",
-    "FORGE_CLIENT_SECRET": "your secret here",
-    "FORGE_WEBHOOK_URL": "your ngrok address here: e.g. http://abcd1234.ngrok.io",
-    "FORGE_DESIGN_AUTOMATION_NICKNAME": "your design automation nickname if you already set: e.g. revitiomycompanyname"
-},
-```
-
 **Revit plugin**
 
-A compiled version of the `Revit` plugin (.bundles) is included on the `web` module, under `wwwroot/bundles` folder. Any changes on these plugins will require to create a new .bundle, the **Post-build** event should create it. Please review the readme for [CountItApp](https://github.com/Autodesk-Forge/design.automation-csharp-revit.count.delete/tree/master/CountItApp) & [DeleteElementsApp](https://github.com/Autodesk-Forge/design.automation-csharp-revit.count.delete/tree/master/DeleteElementsApp)
+A compiled version of the `Revit` plugin (.bundles) is included on the `WebApp` module, under `wwwroot/bundles` folder. Any changes on these plugins will require to create a new .bundle, the **Post-build** event should create it. Please review the readme for [CountItApp](https://github.com/Autodesk-Forge/design.automation-csharp-revit.count.delete/tree/master/CountItApp) & [DeleteElementsApp](https://github.com/Autodesk-Forge/design.automation-csharp-revit.count.delete/tree/master/DeleteElementsApp)
 
 Start the app.
 
 Open `http://localhost:3000` to start the app, follow the workflow I mentioned before.
 
-## Deployment
-
-To deploy this application to Heroku, the **Callback URL** for Forge must use your `.herokuapp.com` address. After clicking on the button below, at the Heroku Create New App page, set your Client ID, Secret, NickName and Callback URL for Forge.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-
 # Further Reading
 
 Documentation:
 
-
 - [Data Management API](https://developer.autodesk.com/en/docs/data/v2/overview/)
-- [Model Derivative API](https://developer.autodesk.com/en/docs/data/v2/overview/)
-- [Webhook](https://forge.autodesk.com/en/docs/webhooks/v1)
+- [Model Derivative API](https://forge.autodesk.com/en/docs/model-derivative/v2/)
 - [Design Automation](https://forge.autodesk.com/en/docs/design-automation/v3/developers_guide/overview/)
 
 Desktop APIs:

@@ -16,8 +16,8 @@
         "ASPNETCORE_URLS": "http://localhost:3000",
         "FORGE_CLIENT_ID": "your client secret",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "FORGE_DESIGN_AUTOMATION_NICKNAME": "your design automation app nick name",
-        "FORGE_WEBHOOK_URL": "http://6d940767.ngrok.io"
+        "FORGE_DESIGN_AUTOMATION_NICKNAME": "",
+        "FORGE_WEBHOOK_URL": "your ngrok address"
       }
     },
     "forgesample": {
