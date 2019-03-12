@@ -1,32 +1,20 @@
-# DeleteWalls Sample
+# DeleteElements Sample
 
-[![.net](https://img.shields.io/badge/.net-4.5-green.svg)](http://www.microsoft.com/en-us/download/details.aspx?id=30653)
+[![.net](https://img.shields.io/badge/.net-4.7-green.svg)](http://www.microsoft.com/en-us/download/details.aspx?id=30653)
 [![Design Automation](https://img.shields.io/badge/Design%20Automation-v3-green.svg)](http://developer.autodesk.com/)
 [![visual studio](https://img.shields.io/badge/Visual%20Studio-2017-green.svg)](https://www.visualstudio.com/)
 
 ## Description
 
-DeleteWalls is an application that takes in a rvt file and outputs another rvt file with all of the walls removed.
+DeleteElements is an application that takes in a rvt file and outputs another rvt file with all of the specified element types removed.
 
-## Dependencies
+## Building DeleteElements.csproj
 
-This project was built in Visual Studio 2017. Download it [here](https://www.visualstudio.com/).
+Right-click on References, then Add Reference and Browse for **RevitAPI.dll** (by default under `C:\Program Files\Autodesk\Revit 201x\ folder`). Then right-click on this **RevitAPI** reference, go to Properties, then set Copy Local to False.
 
-This sample references Revit 2018's `RevitAPI.dll` and [DesignAutomationBridge.dll](https://revitio.s3.amazonaws.com/documentation/DesignAutomationBridge.dll) for Revit 2018.
+Then right-click on the project, go to Manage NuGet Packages..., under **Browser** you can search for `DesignAutomation.Revit` and install `Autodesk.Forge.DesignAutomation.Revit` (choose the appropriate Revit version you need). Then search and install `Newtonsoft.Json` (which is used to parse input data in JSON format).
 
-In order to POST appbundles, activities, and workitems you must have credentials for [Forge](../Docs/Forge.md).
-
-## Building DeleteWalls.sln
-
-Download [DesignAutomationBridge.dll](https://revitio.s3.amazonaws.com/documentation/DesignAutomationBridge.dll) for Revit 2018. DesignAutomationBridge.dlls for other Revit versions can be found [here](../Docs/AppBundle.md#engine-version-aliases).
-
-Find `RevitAPI.dll` in your Revit 2018 install location and note its location. 
-
-Clone this repository and open `DeleteWalls.sln` in Visual Studio.  
-
-In the DeleteWalls C# project, repair the references to `DesignAutomationBridge` and `RevitAPI`.  You can do this by removing and re-adding the references, or by opening the `DeleteWalls.csproj` for edit and manually updating the reference paths.
-
-Build `DeleteWalls.sln` in `Release` or `Debug` configuration.
+Build `DeleteElements.csproj` in `Release` or `Debug` configuration.
 
 ## Creating and Publishing the Appbundle
 
@@ -35,23 +23,23 @@ Create an `appbundle` zip package from the build outputs and publish the `appbun
 The `JSON` in your appbundle POST should look like this:
 ```json
 {
-  "id": "DeleteWallsApp",
-  "engine": "Autodesk.Revit+2018",
-  "description": "DeleteWalls appbundle based on Revit 2018"
+  "id": "DeleteElementsApp",
+  "engine": "Autodesk.Revit+2019",
+  "description": "DeleteElements appbundle based on Revit 2019"
 }
 ```
 Notes:
-* `engine` = `Autodesk.Revit+2018` - A list of engine versions can be found [here](../Docs/AppBundle.md#engine-version-aliases).
+* `engine` = `Autodesk.Revit+2019` - A list of engine versions can be found [here](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/engines-GET/).
 
 After you upload the `appbundle` zip package, you should create an alias for this appbundle. The `JSON` in the POST should look like this:
 ```json
 {
   "version": 1,
-  "id": "test"
+  "id": "dev"
 }
 ```
 
-> **The instructions for these steps and more about `appbundle` are [here](../Docs/AppBundle.md)**.
+> **The instructions for these steps and more about `appbundle` are [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step4-publish-appbundle/)**.
 
 ## Creating the Activity
 
@@ -60,8 +48,8 @@ Define an `activity` to run against the `appbundle`.
 The `JSON` that accompanies the `activity` POST will look like this:
 ```json
 {
-   "id": "DeleteWallsActivity",
-   "commandLine": [ "$(engine.path)\\\\revitcoreconsole.exe /i $(args[rvtFile].path) /al $(appbundles[DeleteWallsApp].path)" ],
+   "id": "DeleteElementsActivity",
+   "commandLine": [ "$(engine.path)\\\\revitcoreconsole.exe /i $(args[rvtFile].path) /al $(appbundles[DeleteElementsApp].path)" ],
    "parameters": {
       "rvtFile": {
          "zip": false,
@@ -70,6 +58,14 @@ The `JSON` that accompanies the `activity` POST will look like this:
          "description": "Input Revit model",
          "required": true,
          "localName": "$(rvtFile)"
+      },
+      "deleteElementsParams": {
+         "zip": false,
+         "ondemand": false,
+         "verb": "get",
+         "description": "DeleteElements parameters",
+         "required": false,
+         "localName": "Params.json"
       },
       "result": {
          "zip": false,
@@ -80,24 +76,24 @@ The `JSON` that accompanies the `activity` POST will look like this:
          "localName": "result.rvt"
       }
    },
-   "engine": "Autodesk.Revit+2018",
-   "appbundles": [ "YourNickname.DeleteWallsApp+test" ],
-   "description": "Delete walls from Revit file."
+   "engine": "Autodesk.Revit+2019",
+   "appbundles": [ "YourNickname.DeleteElementsApp+dev" ],
+   "description": "Delete elements from Revit file."
 }
 ```
 Notes:
-* `engine` = `Autodesk.Revit+2018` - A list of engine versions can be found [here](../Docs/AppBundle.md#engine-version-aliases).
-* `YourNickname` - The owner of appbundle `DeleteWallsApp`. More information can be found [here](../Docs/Nickname.md).
+* `engine` = `Autodesk.Revit+2019` - A list of engine versions can be found [here](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/engines-GET/).
+* `YourNickname` - The owner of appbundle `DeleteElementsApp`. More information can be found [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step3-create-nickname/).
 
 Then you should create an alias for this activity. The `JSON` in the POST should look like this:
 ```json
 {
   "version": 1,
-  "id": "test"
+  "id": "dev"
 }
 ```
 
-> **The instructions for these steps and more about `activity` are [here](../Docs/Activity.md)**.
+> **The instructions for these steps and more about `activity` are [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step5-publish-activity/)**.
 
 
 ## POST a WorkItem
@@ -107,12 +103,15 @@ Now POST a `workitem` against the `activity` to run a job on your `appbundle`.
 The `JSON` that accompanies the `WorkItem` POST will look like this:
 ```json
 {
-  "activityId": "YourNickname.DeleteWallsActivity+test",
+  "activityId": "YourNickname.DeleteElementsActivity+dev",
   "arguments": {
     "rvtFile": {
-      "url": "https://myWebsite/DeleteWalls.rvt"
+      "url": "https://myWebsite/DeleteElements.rvt"
     },
-    "result": {
+    "deleteElementsParams": {
+      "url": "data:application/json,{'walls': false, 'floors': true, 'doors': true, 'windows': true}"
+    },   
+     "result": {
       "verb": "put",
       "url": "https://myWebsite/signed/url/to/result.rvt"
     }
@@ -120,10 +119,10 @@ The `JSON` that accompanies the `WorkItem` POST will look like this:
 }
 ```
 Notes:
-* `YourNickname` - The owner of activity `DeleteWallsActivity`. More information can be found [here](../Docs/Nickname.md).
+* `YourNickname` - The owner of activity `DeleteElementsActivity`. More information can be found [here](.https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step3-create-nickname/).
 
-> **The instructions for this step and more about `workitem` are [here](../Docs/WorkItem.md)**.
+> **The instructions for this step and more about `workitem` are [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step6-post-workitem/)**.
 
-The value of the `rvtFile` parameter is the URL to the input file `DeleteWalls.rvt`. DeleteWalls application opens `DeleteWalls.rvt`, deletes the walls in it and saves it as `result.rvt`. The output file `result.rvt` will be uploaded to `url` you provide in the workitem.  
+The value of the `rvtFile` parameter is the URL to the input file `DeleteElements.rvt`. DeleteElements application opens `DeleteElements.rvt`, deletes the specified element types in it and saves it as `result.rvt`. The output file `result.rvt` will be uploaded to `url` you provide in the workitem.  
 
-The function `DeleteAllWalls` in [DeleteWalls.cs](DeleteWallsApp/DeleteWalls.cs) performs these operations.
+The function `DeleteAllElements` in [DeleteElements.cs](DeleteElementsApp/DeleteElements.cs) performs these operations.

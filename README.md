@@ -58,7 +58,7 @@ Right-click on the project, then go to **Debug**. Adjust the settings as shown b
 
 ![](visual_studio_settings.png) 
 
-The environment variables you need to set should be as follow, most of them are same as detailed in [Design Automation Sample Tutorial](http://learnforge.autodesk.io/#/environment/setup/netcore). The only one you need to notice is `FORGE_DESIGN_AUTOMATION_NICKNAME`, if you already set a `NickName` for your Forge App, e.g. revitiomycompanyname, please input the value of `NickName` here, if you don't set a `NickName`, you can ignore this environment variable, just leave it as it is.
+The environment variables you need to set should be as above, most of them are same as detailed in [Design Automation Sample Tutorial](http://learnforge.autodesk.io/#/environment/setup/netcore). The only one you need to notice is `FORGE_DESIGN_AUTOMATION_NICKNAME`, if you already set a `NickName` for your Forge App, e.g. revitiomycompanyname, please input the value of `NickName` here, if you don't set a `NickName`, you can ignore this environment variable, just leave it as it is.
 
 - "ASPNETCORE_ENVIRONMENT": "Development",
 - "ASPNETCORE_URLS" : "http://localhost:3000",
@@ -73,7 +73,7 @@ Run `ngrok http 3000 -host-header="localhost:3000"` to create a tunnel to your l
 
 **Revit plugin**
 
-A compiled version of the `Revit` plugin (.bundles) is included on the `WebApp` module, under `wwwroot/bundles` folder. Any changes on these plugins will require to create a new .bundle, the **Post-build** event should create it. Please review the readme for [CountItApp](https://github.com/Autodesk-Forge/design.automation-csharp-revit.count.delete/tree/master/CountItApp) & [DeleteElementsApp](https://github.com/Autodesk-Forge/design.automation-csharp-revit.count.delete/tree/master/DeleteElementsApp)
+A compiled version of the `Revit` plugin (.bundles) is included on the `WebApp` module, under `wwwroot/bundles` folder. Any changes on these plugins will require to create a new .bundle, the **Post-build** event should create it. Please review the readme for [CountItApp](https://github.com/JohnOnSoftware/design.automation-csharp-revit.count.delete/tree/master/CountItApp) & [DeleteElementsApp](https://github.com/JohnOnSoftware/design.automation-csharp-revit.count.delete/tree/master/DeleteElementsApp)
 
 Start the app.
 

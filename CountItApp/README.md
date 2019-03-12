@@ -1,6 +1,6 @@
 # CountIt Sample
 
-[![.net](https://img.shields.io/badge/.net-4.5-green.svg)](http://www.microsoft.com/en-us/download/details.aspx?id=30653)
+[![.net](https://img.shields.io/badge/.net-4.7-green.svg)](http://www.microsoft.com/en-us/download/details.aspx?id=30653)
 [![Design Automation](https://img.shields.io/badge/Design%20Automation-v3-green.svg)](http://developer.autodesk.com/)
 [![Visual Studio](https://img.shields.io/badge/Visual%20Studio-2017-green.svg)](https://www.visualstudio.com/)
 
@@ -8,25 +8,13 @@
 
 CountIt is an application that counts walls, floors, doors and windows in a rvt file and its rvt links. It takes a JSON file that specifies which categories of elements will be counted. The output of this application is a text file which contains the element counts.
 
-## Dependencies 
+## Building CountIt.csproj
 
-This project was built in Visual Studio 2017. Download it [here](https://www.visualstudio.com/).
+Right-click on References, then Add Reference and Browse for **RevitAPI.dll** (by default under `C:\Program Files\Autodesk\Revit 201x\ folder`). Then right-click on this **RevitAPI** reference, go to Properties, then set Copy Local to False.
 
-This sample references Revit 2018's `RevitAPI.dll`, [DesignAutomationBridge.dll](https://revitio.s3.amazonaws.com/documentation/DesignAutomationBridge.dll) for Revit 2018 and [Newtonsoft JSON framework](https://www.newtonsoft.com/json).
+Then right-click on the project, go to Manage NuGet Packages..., under **Browser** you can search for `DesignAutomation.Revit` and install `Autodesk.Forge.DesignAutomation.Revit` (choose the appropriate Revit version you need). Then search and install `Newtonsoft.Json` (which is used to parse input data in JSON format).
 
-In order to POST appbundles, activities, and workitems you must have credentials for [Forge](../Docs/Forge.md).
-
-## Building CountIt.sln
-
-Download [DesignAutomationBridge.dll](https://revitio.s3.amazonaws.com/documentation/DesignAutomationBridge.dll) for Revit 2018 and [Newtonsoft JSON framework](https://www.newtonsoft.com/json).  DesignAutomationBridge.dlls for other Revit versions can be found [here](../Docs/AppBundle.md#engine-version-aliases).
-
-Find `RevitAPI.dll` in your Revit 2018 install location and note its location. 
-
-Clone this repository and open `CountIt.sln` in Visual Studio.  
-
-In the CountIt C# project, repair the references to `DesignAutomationBridge`, `Newtonsoft JSON framework` and `RevitAPI`.  You can do this by removing and re-adding the references, or by opening the `CountIt.csproj` for edit and manually updating the reference paths.
-
-Build `CountIt.sln` in `Release` or `Debug` configuration.
+Build `CountIt.csproj` in `Release` or `Debug` configuration.
 
 ## Creating and Publishing the Appbundle
 
@@ -36,22 +24,22 @@ The `JSON` in your `appbundle` POST should look like this:
 ```json
 {
   "id": "CountItApp",
-  "engine": "Autodesk.Revit+2018",
-  "description": "CountIt appbundle based on Revit 2018"
+  "engine": "Autodesk.Revit+2019",
+  "description": "CountIt appbundle based on Revit 2019"
 }
 ```
 Notes:
-* `engine` = `Autodesk.Revit+2018` - A list of engine versions can be found [here](../Docs/AppBundle.md#engine-version-aliases).
+* `engine` = `Autodesk.Revit+2019` - A list of engine versions can be found [here](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/engines-GET/).
 
 After you upload the `appbundle` zip package, you should create an alias for this appbundle. The `JSON` in the POST should look like this:
 ```json
 {
   "version": 1,
-  "id": "test"
+  "id": "dev"
 }
 ```
 
-> **The instructions for these steps and more about `appbundle` are [here](../Docs/AppBundle.md)**.
+> **The instructions for these steps and more about `appbundle` are [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step4-publish-appbundle/)**.
 
 
 ## Creating the Activity
@@ -79,7 +67,7 @@ The `JSON` that accompanies the `activity` POST will look like this:
          "verb": "get",
          "description": "CountIt parameters",
          "required": false,
-         "localName": "CountItParams.json"
+         "localName": "Params.json"
       },
       "result": {
          "zip": false,
@@ -90,24 +78,24 @@ The `JSON` that accompanies the `activity` POST will look like this:
          "localName": "result.txt"
       }
    },
-   "engine": "Autodesk.Revit+2018",
-   "appbundles": [ "YourNickname.CountItApp+test" ],
+   "engine": "Autodesk.Revit+2019",
+   "appbundles": [ "YourNickname.CountItApp+dev" ],
    "description": "Count and output elements from Revit file."
 }
 ```
 Notes:
-* `engine` = `Autodesk.Revit+2018` - A list of engine versions can be found [here](../Docs/AppBundle.md#engine-version-aliases).
-* `YourNickname` - The owner of appbundle `CountItApp`. More information can be found [here](../Docs/Nickname.md).
+* `engine` = `Autodesk.Revit+2019` - A list of engine versions can be found [here](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/engines-GET/).
+* `YourNickname` - The owner of appbundle `CountItApp`. More information can be found [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step3-create-nickname/).
 
 Then you should create an alias for this activity. The `JSON` in the POST should look like this:
 ```json
 {
   "version": 1,
-  "id": "test"
+  "id": "dev"
 }
 ```
 
-> **The instructions for these steps and more about `activity` are [here](../Docs/Activity.md)**.
+> **The instructions for these steps and more about `activity` are [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step5-publish-activity/)**.
 
 ## POST a WorkItem
 
@@ -117,7 +105,7 @@ The `JSON` that accompanies the `workitem` POST will look like this:
 
 ```json
 {
-  "activityId": "YourNickname.CountItActivity+test",
+  "activityId": "YourNickname.CountItActivity+dev",
   "arguments": {
     "rvtFile": {
       "url": "https://myWebsite/CountIt.rvt"
@@ -133,10 +121,10 @@ The `JSON` that accompanies the `workitem` POST will look like this:
 }
 ```
 Notes:
-* `YourNickname` - The owner of activity `CountItActivity`. More information can be found [here](../Docs/Nickname.md).
+* `YourNickname` - The owner of activity `CountItActivity`. More information can be found [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step3-create-nickname/).
 
-> **The instructions for this step and more about `workitem` are [here](../Docs/WorkItem.md)**.
+> **The instructions for this step and more about `workitem` are [here](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit/step6-post-workitem/)**.
 
-`CountItActivity` expects an input file `CountItParams.json`. The contents of the embedded JSON will be stored in a file named `CountItParams.json`, as specified by the `parameters` of `countItParams` in the activity `CountItActivity`. The CountIt application reads this file from current working folder and parses the JSON to determine which element categories should be counted. The counting result is saved to `result.txt` which will be uploaded to `url` you provide in the workitem.
+`CountItActivity` expects an input file `Params.json`. The contents of the embedded JSON will be stored in a file named `Params.json`, as specified by the `parameters` of `countItParams` in the activity `CountItActivity`. The CountIt application reads this file from current working folder and parses the JSON to determine which element categories should be counted. The counting result is saved to `result.txt` which will be uploaded to `url` you provide in the workitem.
 
 The function `CountElementsInModel` in [Main.cs](CountItApp/Main.cs) performs these operations.
