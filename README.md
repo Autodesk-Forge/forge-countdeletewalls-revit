@@ -4,7 +4,7 @@
 ![.NET](https://img.shields.io/badge/.NET%20Core-2.1-blue.svg)
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://developer.autodesk.com/)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://developer.autodesk.com/)
-[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v1-green.svg)](http://developer.autodesk.com/)
+[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://developer.autodesk.com/)
 [![Design-Automation](https://img.shields.io/badge/Design%20Automation-v3-green.svg)](http://developer.autodesk.com/)
 
 ![Platforms](https://img.shields.io/badge/Plugins-Windows-lightgray.svg)
@@ -20,7 +20,7 @@ This sample is based on Learn Forge [Design Automation Sample](http://learnforge
 
 This sample includes 2 Revit plugin projects, `CountIt` and `DeleteElement`, which are migrated from the `CountIt` & `DeleteWalls` from [Autodesk Forge official document](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit-samples/), I just improved a little to make the 2 plugin project can Count/Delete elements(Walls, Floors, Doors, Windows) based on the input json file. 
 
-The sample also integrates the UI from [learn.forge.viewmodels](https://github.com/Autodesk-Forge/learn.forge.viewmodels) to get the input revit file from the bucket, and also put the result file back to the same bucket. The result files are different, a .txt file for `CountIt`, and an modified .rvt file for `DeleteElement`.
+The sample also integrates the UI from [learn.forge.viewmodels](https://github.com/Autodesk-Forge/learn.forge.viewmodels) to get the input revit file from the bucket, and also put the result file back to the same bucket. The result files are different, a `.txt` file for `CountIt`, and an modified `.rvt` file for `DeleteElements`.
 
 To use the sample, the workflow should be:
 1. Build the solution to create 2 AppBundle under `wwwroot/bundles`;
