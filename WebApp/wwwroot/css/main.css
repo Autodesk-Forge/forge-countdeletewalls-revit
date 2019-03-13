@@ -21,6 +21,6 @@ body {
 
 #forgeViewer {
     padding-top: 10px; /* space for the top nav bar */
-    width: 80%;
-    height: calc(100vh -550px);
+    width: 100%;
+    height: calc(100vh - 400px);
 }

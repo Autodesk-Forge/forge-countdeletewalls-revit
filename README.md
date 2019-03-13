@@ -16,6 +16,8 @@
 
 # Description
 
+The sample demostrates the ability to Count/Delete Revit elements using Design Automation for Revit API.  
+
 This sample is based on Learn Forge [Design Automation Sample Tutorial](http://learnforge.autodesk.io/#/tutorials/modifymodels), the workflow is pretty similar, please make sure to go through that sample first, or you are already familiar with that. 
 
 This sample includes 2 Revit plugin projects, `CountIt` and `DeleteElement`, which are migrated from the `CountIt` & `DeleteWalls` from [Autodesk Forge official document](https://forge.autodesk.com/en/docs/design-automation/v3/tutorials/revit-samples/), I made a little improvement to `DeleteWalls` sample to support deleting different types of elements(Walls, Floors, Doors, Windows) based on the input json file, and renamed the Revit plugin project to `DeleteElements`.
