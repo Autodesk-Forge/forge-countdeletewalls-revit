@@ -64,7 +64,8 @@ function prepareAppBucketTree() {
   }).on('loaded.jstree', function () {
     $('#appBuckets').jstree('open_all');
   }).bind("activate_node.jstree", function (evt, data) {
-      if (data !== null && data.node !== null && data.node.type === 'object') {
+    if (data !== null && data.node !== null && data.node.type === 'object') {
+      if (data.node.text.indexOf('.txt') > 0) return;
       resetCount();
       $("#forgeViewer").empty();
       var urn = data.node.id;
@@ -123,7 +124,7 @@ function autodeskCustomMenu(autodeskNode) {
 
 function uploadFile(node) {
   $('#hiddenUploadField').click();
-    $('#hiddenUploadField').change(function () {
+  $('#hiddenUploadField').change(function () {
     if (this.files.length === 0) return;
     var file = this.files[0];
     switch (node.type) {
@@ -148,7 +149,7 @@ function uploadFile(node) {
 
 function translateObject(node) {
   $("#forgeViewer").empty();
-  if (node === null) node = $('#appBuckets').jstree(true).get_selected(true)[0];
+  if (node === null || node === undefined) node = $('#appBuckets').jstree(true).get_selected(true)[0];
   var bucketKey = node.parents[0];
   var objectKey = node.id;
   jQuery.post({
@@ -162,8 +163,8 @@ function translateObject(node) {
 }
 
 function resetCount() {
-    $('#walls')[0].innerText = '';
-    $('#floors')[0].innerText = '';
-    $('#doors')[0].innerText = '';
-    $('#windows')[0].innerText = '';
+  $('#walls')[0].innerText = '';
+  $('#floors')[0].innerText = '';
+  $('#doors')[0].innerText = '';
+  $('#windows')[0].innerText = '';
 }
