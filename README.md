@@ -3,7 +3,6 @@
 ![Platforms](https://img.shields.io/badge/Web-Windows|MacOS-lightgray.svg)
 ![.NET](https://img.shields.io/badge/.NET%20Core-2.1-blue.svg)
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://developer.autodesk.com/)
-[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://developer.autodesk.com/)
 [![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://developer.autodesk.com/)
 [![Design-Automation](https://img.shields.io/badge/Design%20Automation-v3-green.svg)](http://developer.autodesk.com/)
 
@@ -11,12 +10,12 @@
 ![.NET](https://img.shields.io/badge/.NET%20Framework-4.7-blue.svg)
 [![Revit](https://img.shields.io/badge/Revit-2019-lightblue.svg)](http://developer.autodesk.com/)
 
-![Advanced](https://img.shields.io/badge/Level-Advanced-red.svg)
+![Intermediary](https://img.shields.io/badge/Level-Intermediary-lightblue.svg)
 [![License](http://img.shields.io/:license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
 # Description
 
-The sample demostrates the ability to Count/Delete Revit elements using Design Automation for Revit API.  
+_CountDelete_ is a sample application that counts and deletes Revit elements in a host and link model using the Design Automation API for Revit. 
 
 This sample is based on Learn Forge [Learn Forge Tutorial](http://learnforge.autodesk.io/#/tutorials/modifymodels), the workflow is pretty similar, please make sure to go through that sample first, or you are already familiar with that. 
 
