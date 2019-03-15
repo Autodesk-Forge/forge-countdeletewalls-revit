@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autodesk.Forge;
 using Microsoft.AspNetCore.Mvc;
-using Autodesk.Forge;
+using System;
+using System.Threading.Tasks;
 
 namespace forgesample.Controllers
 {

@@ -3,10 +3,8 @@ using Autodesk.Forge.DesignAutomation;
 using Autodesk.Forge.DesignAutomation.Model;
 using Autodesk.Forge.Model;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
@@ -83,9 +81,8 @@ namespace forgesample.Controllers
 
             // define Engines API
             Page<string> engines = await _designAutomation.GetEnginesAsync();
-            engines.Data.Sort();
-
-            return engines.Data; // return list of engines
+            // return just REVIT engines
+            return engines.Data.Where(e => e.Contains("Revit")).OrderBy(e => e).ToList<string>();
         }
 
         /// <summary>
@@ -282,9 +279,9 @@ namespace forgesample.Controllers
             // 3. output file
             string outputFileNameOSS = null;
             if ( isCount )
-                outputFileNameOSS = string.Format("{0}_output_{1}.txt", DateTime.Now.ToString("yyyyMMddhhmmss"), Path.GetFileNameWithoutExtension(inputFileNameOSS)); // avoid overriding
+                outputFileNameOSS = string.Format("{0}_{1}.txt", DateTime.Now.ToString("yyyyMMddhhmmss"), Path.GetFileNameWithoutExtension(inputFileNameOSS)); // avoid overriding
             else
-                outputFileNameOSS = string.Format("{0}_output_{1}", DateTime.Now.ToString("yyyyMMddhhmmss"), Path.GetFileName(inputFileNameOSS)); // avoid overriding
+                outputFileNameOSS = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMddhhmmss"), Path.GetFileName(inputFileNameOSS)); // avoid overriding
             XrefTreeArgument outputFileArgument = new XrefTreeArgument()
             {
                 Url = string.Format("https://developer.api.autodesk.com/oss/v2/buckets/{0}/objects/{1}", bucketKey, outputFileNameOSS),
