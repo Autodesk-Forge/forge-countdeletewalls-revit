@@ -45,7 +45,7 @@ namespace forgesample.Controllers
         // Used to access the application folder (temp location for files & bundles)
         private IHostingEnvironment _env;
         // used to access the SignalR Hub
-        private IHubContext<DesignAutomationHub> _hubContext;
+        private IHubContext<ForgeCommunicationHub> _hubContext;
         // Local folder for bundles
         public string LocalBundlesFolder { get { return Path.Combine(_env.WebRootPath, "bundles"); } }
         /// Prefix for AppBundles and Activities
@@ -61,7 +61,7 @@ namespace forgesample.Controllers
         DesignAutomationClient _designAutomation;
 
         // Constructor, where env and hubContext are specified
-        public DesignAutomationController(IHostingEnvironment env, IHubContext<DesignAutomationHub> hubContext, DesignAutomationClient api)
+        public DesignAutomationController(IHostingEnvironment env, IHubContext<ForgeCommunicationHub> hubContext, DesignAutomationClient api)
         {
             _designAutomation = api;
             _env = env;
@@ -402,7 +402,7 @@ namespace forgesample.Controllers
     /// <summary>
     /// Class uses for SignalR
     /// </summary>
-    public class DesignAutomationHub : Microsoft.AspNetCore.SignalR.Hub
+    public class ForgeCommunicationHub : Microsoft.AspNetCore.SignalR.Hub
     {
         public string GetConnectionId() { return Context.ConnectionId; }
     }

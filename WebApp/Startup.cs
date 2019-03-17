@@ -17,7 +17,6 @@
 /////////////////////////////////////////////////////////////////////
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace forgesample
@@ -39,7 +38,7 @@ namespace forgesample
             app.UseMvc();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<Controllers.DesignAutomationHub>("/api/signalr/designautomation");
+                routes.MapHub<Controllers.ForgeCommunicationHub>("/api/signalr/forgecommunication");
             });
         }
     }

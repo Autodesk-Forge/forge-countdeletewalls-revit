@@ -172,7 +172,7 @@ var connectionId;
 
 function startConnection(onReady) {
     if (connection && connection.connectionState) { if (onReady) onReady(); return; }
-    connection = new signalR.HubConnectionBuilder().withUrl("/api/signalr/designautomation").build();
+    connection = new signalR.HubConnectionBuilder().withUrl("/api/signalr/forgecommunication").build();
     connection.start()
         .then(function () {
             connection.invoke('getConnectionId')
@@ -197,4 +197,8 @@ function startConnection(onReady) {
         parentNode = instance.get_parent(selectNode);
         instance.refresh_node(parentNode);
     });
+    connection.on("extractionFinished", function (data) {
+        launchViewer(data.resourceUrn);
+    });
+
 }
