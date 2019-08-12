@@ -323,7 +323,7 @@ namespace forgesample.Controllers
                     { "onComplete", new XrefTreeArgument { Verb = Verb.Post, Url = callbackUrl } }
                 }
             };
-            WorkItemStatus workItemStatus = await _designAutomation.CreateWorkItemsAsync(workItemSpec);
+            WorkItemStatus workItemStatus = await _designAutomation.CreateWorkItemAsync(workItemSpec);
 
             return Ok(new { WorkItemId = workItemStatus.Id });
 
@@ -339,6 +339,7 @@ namespace forgesample.Controllers
         {
             try
             {
+
                 // your webhook should return immediately! we can use Hangfire to schedule a job
                 JObject bodyJson = JObject.Parse((string)body.ToString());
                 await _hubContext.Clients.Client(id).SendAsync("onComplete", bodyJson.ToString());
