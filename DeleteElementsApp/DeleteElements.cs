@@ -54,24 +54,27 @@ namespace DeleteElements
         /// </summary>
         /// <param name="data"></param>
         public static void DeleteAllElements(DesignAutomationData data)
-      {
-         if (data == null) throw new ArgumentNullException(nameof(data));
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
 
-         Application rvtApp = data.RevitApp;
-         if (rvtApp == null) throw new InvalidDataException(nameof(rvtApp));
+            Application rvtApp = data.RevitApp;
+            if (rvtApp == null) throw new InvalidDataException(nameof(rvtApp));
 
-         string modelPath = data.FilePath;
-         if (String.IsNullOrWhiteSpace(modelPath)) throw new InvalidDataException(nameof(modelPath));
+            string modelPath = data.FilePath;
+            if (String.IsNullOrWhiteSpace(modelPath)) throw new InvalidDataException(nameof(modelPath));
 
-         Document doc = data.RevitDoc;
-         if (doc == null) throw new InvalidOperationException("Could not open document.");
+            // If the input revit model passed is a workshared revit file then by default the Design Automation 
+            // bridge will open the model detached from central, opting DetachAndPreserveWorsets option.
+            // Non-worshared revit file will be load as is.
+            Document doc = data.RevitDoc;
+            if (doc == null) throw new InvalidOperationException("Could not open document.");
 
 
-        // For CountIt workItem: If RvtParameters is null, count all types
-        DeleteElementsParams deleteElementsParams = DeleteElementsParams.Parse("params.json");
+            // For CountIt workItem: If RvtParameters is null, count all types
+            DeleteElementsParams deleteElementsParams = DeleteElementsParams.Parse("params.json");
 
-        using (Transaction transaction = new Transaction(doc))
-         {
+            using (Transaction transaction = new Transaction(doc))
+            {
                 transaction.Start("Delete Elements");
                 if (deleteElementsParams.walls)
                 {
@@ -101,10 +104,18 @@ namespace DeleteElements
                     doc.Delete(collection);
                 }
                 transaction.Commit();
-         }
+            }
 
-         ModelPath path = ModelPathUtils.ConvertUserVisiblePathToModelPath("result.rvt");
-         doc.SaveAs(path, new SaveAsOptions());
-      }
+            ModelPath path = ModelPathUtils.ConvertUserVisiblePathToModelPath("result.rvt");
+            // If a worshared file is opened as a part of this addin then the new file will be 
+            // saved as central.
+            SaveAsOptions opts = new SaveAsOptions();
+            if (doc.IsWorkshared)
+            {
+                opts.SetWorksharingOptions(new WorksharingSaveAsOptions { SaveAsCentral = true });
+                WorksharingUtils.RelinquishOwnership(doc, new RelinquishOptions(true), new TransactWithCentralOptions());
+            }
+            doc.SaveAs(path, new SaveAsOptions());
+        }
    }
 }
