@@ -1,3 +1,6 @@
+<h1>DEPRECATED</h1>
+This repository has been deprecated and all its content was moved to the new one located here https://github.com/autodesk-platform-services/aps-count-delete-walls
+
 # design.automation-csharp-revit.count.delete
 
 ![Platforms](https://img.shields.io/badge/Web-Windows|MacOS-lightgray.svg)
